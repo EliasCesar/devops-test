@@ -4,7 +4,6 @@ module "eks" {
   cluster_name    = local.cluster_name
   cluster_version = "1.22"
   subnets         = module.vpc.private_subnets
-
   vpc_id = module.vpc.vpc_id
 
   workers_group_defaults = {
@@ -43,7 +42,6 @@ module "eks_deploy" {
   cluster_name    = local.cluster_name_dep
   cluster_version = "1.22"
   subnets         = module.vpc.private_subnets
-
   vpc_id = module.vpc.vpc_id
 
   workers_group_defaults = {
@@ -52,19 +50,13 @@ module "eks_deploy" {
 
   worker_groups = [
     {
-      name                          = "jenkings"
+      name                          = "jenkins"
+      user_data       = "${file("install_jenkins.sh")}"
       instance_type                 = "t2.medium"
-      additional_userdata           = "echo foo bar"
+      associate_public_ip_address = true
+      additional_userdata           = ""
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
       asg_desired_capacity          = 1
     },
   ]
-}
-
-data "aws_eks_cluster" "cluster_deploy" {
-  name = module.eks.cluster_id
-}
-
-data "aws_eks_cluster_auth" "cluster_deploy" {
-  name = module.eks.cluster_id
 }
