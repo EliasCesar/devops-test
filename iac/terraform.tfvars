@@ -8,5 +8,5 @@ public_subnets_cidr			=  ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 private_subnets_cidr		=  ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 cluster_name_dep			=  "deployment-cluster"
 workers_name_development	=  "worker-group-1"
-worker_name_deployment		=  "jenkins"
+workers_name_deployment		=  "jenkins"
 instance_type				=  "t2.small"
