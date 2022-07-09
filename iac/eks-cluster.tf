@@ -1,3 +1,8 @@
+# Recursos eks
+#  * cluster developmente
+#  * cluster deployment
+#  * 
+#
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "17.24.0"
@@ -12,18 +17,11 @@ module "eks" {
 
   worker_groups = [
     {
-      name                          = "worker-group-1"
-      instance_type                 = "t2.small"
-      additional_userdata           = "echo foo bar"
+      name                          = var.workers_name_development
+      instance_type                 = var.instance_type
+      additional_userdata           = ""
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
       asg_desired_capacity          = 2
-    },
-    {
-      name                          = "worker-group-2"
-      instance_type                 = "t2.medium"
-      additional_userdata           = "echo foo bar"
-      additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
-      asg_desired_capacity          = 1
     },
   ]
 }
@@ -50,9 +48,9 @@ module "eks_deploy" {
 
   worker_groups = [
     {
-      name                          = "jenkins"
+      name                          = var.workers_name_deployment
       user_data       = "${file("install_jenkins.sh")}"
-      instance_type                 = "t2.medium"
+      instance_type                 = var.instance_type
       associate_public_ip_address = true
       additional_userdata           = ""
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
