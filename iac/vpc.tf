@@ -1,3 +1,9 @@
+
+# Recursos VPC
+#  * VPC
+#  * Subnets
+#
+
 provider "aws" {
   region = var.region
 }
@@ -5,7 +11,8 @@ provider "aws" {
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "deployment-cluster"
+  cluster_name = "development-cluster"
+  cluster_name_dep = "deployment-cluster"
 }
 
 resource "random_string" "suffix" {

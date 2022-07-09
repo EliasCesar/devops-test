@@ -6,3 +6,4 @@ variable "region" {}
 variable "cidr" {}
 variable "public_subnets_cidr" {}
 variable "private_subnets_cidr" {}
+variable "cluster_name_dep" {}
