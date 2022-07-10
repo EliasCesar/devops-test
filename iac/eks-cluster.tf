@@ -1,5 +1,5 @@
 # Recursos eks
-#  * cluster developmente
+#  * cluster development
 #  * cluster deployment
 #  * 
 #
@@ -52,6 +52,7 @@ module "eks_deploy" {
       user_data       = "${file("install_jenkins.sh")}"
       instance_type                 = var.instance_type
       associate_public_ip_address = true
+      key_name        = var.keyname
       additional_userdata           = ""
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
       asg_desired_capacity          = 1
